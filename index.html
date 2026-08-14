@@ -1,383 +1,388 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lotus — Exceptional Digital Experiences</title>
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<!-- Tailwind Play CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          display: ['Outfit', 'Cairo', 'sans-serif'],
-          body: ['Manrope', 'Cairo', 'sans-serif'],
-        },
-        colors: {
-          midnight: '#0A0916',
-          violet: { DEFAULT: '#7C4DFF', 50: '#efe9ff' },
-          indigo: '#4F46E5',
-          cyan: '#22D3EE',
-          gold: '#D0A85C',
-        },
-        boxShadow: {
-          glow: '0 0 60px -10px rgba(124,77,255,0.35)',
-        },
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lotus — Exceptional Digital Experiences</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'Cairo', 'sans-serif'],
+            body: ['Manrope', 'Cairo', 'sans-serif'],
+          },
+          colors: {
+            midnight: '#0A0916',
+            violet: { DEFAULT: '#7C4DFF', 50: '#efe9ff' },
+            indigo: '#4F46E5',
+            cyan: '#22D3EE',
+            gold: '#D0A85C',
+          },
+          boxShadow: {
+            glow: '0 0 60px -10px rgba(124,77,255,0.35)',
+          },
+        }
       }
     }
-  }
-</script>
+  </script>
+  
+  <style>
+    :root { color-scheme: dark; }
+    * { scroll-behavior: smooth; }
+    html[lang="ar"] body { font-family: 'Cairo', 'Manrope', sans-serif; }
+    html[lang="en"] body { font-family: 'Manrope', sans-serif; }
+    html[lang="ar"] .font-display { font-family: 'Cairo', sans-serif; }
+    html[lang="en"] .font-display { font-family: 'Outfit', sans-serif; }
+    
+    body {
+      background-color: #0A0916;
+      color: #F3F1F8;
+      overflow-x: hidden;
+    }
 
-<style>
-  :root { color-scheme: dark; }
-  * { scroll-behavior: smooth; }
+    /* Glass surfaces */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+    .glass-strong {
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .glass-btn {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.14);
+      transition: all 0.35s ease;
+    }
+    .glass-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.28);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(124,77,255,0.9), rgba(34,211,238,0.55));
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.35s ease;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 40px -6px rgba(124,77,255,0.6);
+    }
+    .card-hover {
+      transition: transform 0.45s ease, border-color 0.45s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.22);
+    }
 
-  html[lang="ar"] body { font-family: 'Cairo', 'Manrope', sans-serif; }
-  html[lang="en"] body { font-family: 'Manrope', sans-serif; }
-  html[lang="ar"] .font-display { font-family: 'Cairo', sans-serif; }
-  html[lang="en"] .font-display { font-family: 'Outfit', sans-serif; }
+    /* Background Mesh */
+    .mesh-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .mesh-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.5;
+    }
+    .blob-1 { width: 45vw; height: 45vw; background: #4F46E5; top: -10%; left: -10%; }
+    .blob-2 { width: 40vw; height: 40vw; background: #7C4DFF; top: 10%; right: -10%; }
 
-  body {
-    background-color: #0A0916;
-    color: #F3F1F8;
-    overflow-x: hidden;
-  }
+    /* Lotus Petal Animation */
+    .petal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 46%;
+      height: 78%;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      filter: blur(2px);
+      transform-origin: bottom center;
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+    @keyframes bloom-rotate {
+      from { transform: translate(-50%, -100%) rotate(0deg); }
+      to { transform: translate(-50%, -100%) rotate(360deg); }
+    }
+    .lotus-bloom-wrap {
+      animation: bloom-rotate 90s linear infinite;
+    }
 
-  /* Glass surfaces */
-  .glass {
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.09);
-  }
-  .glass-strong {
-    background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-  .glass-btn {
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.14);
-    transition: all 0.35s ease;
-  }
-  .glass-btn:hover {
-    background: rgba(255,255,255,0.12);
-    border-color: rgba(255,255,255,0.28);
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, rgba(124,77,255,0.9), rgba(34,211,238,0.55));
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: all 0.35s ease;
-  }
-  .btn-primary:hover {
-    box-shadow: 0 0 40px -6px rgba(124,77,255,0.6);
-  }
+    /* Icon boxes */
+    .icon-box {
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(16px);
+    }
+    .icon-box-cyan { border: 1px solid rgba(34,211,238,0.35); color: #22D3EE; }
+    .icon-box-violet { border: 1px solid rgba(124,77,255,0.4); color: #A78BFA; }
+    .icon-box-gold { border: 1px solid rgba(208,168,92,0.4); color: #D0A85C; }
 
-  .card-hover { transition: transform 0.45s ease, border-color 0.45s ease; }
-  .card-hover:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255,255,255,0.22);
-  }
-
-  /* Background Mesh */
-  .mesh-bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .mesh-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.5;
-  }
-  .blob-1 { width: 45vw; height: 45vw; background: #4F46E5; top: -10%; left: -10%; }
-  .blob-2 { width: 40vw; height: 40vw; background: #7C4DFF; top: 10%; right: -10%; }
-
-  /* Lotus Petal Animation */
-  .petal {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 46%; height: 78%;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    filter: blur(2px);
-    transform-origin: bottom center;
-    mix-blend-mode: screen;
-    opacity: 0.8;
-  }
-  @keyframes bloom-rotate {
-    from { transform: translate(-50%, -100%) rotate(0deg); }
-    to { transform: translate(-50%, -100%) rotate(360deg); }
-  }
-  .lotus-bloom-wrap { animation: bloom-rotate 90s linear infinite; }
-
-  /* Icon boxes */
-  .icon-box {
-    width: 3.25rem; height: 3.25rem;
-    border-radius: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(16px);
-  }
-  .icon-box-cyan   { border: 1px solid rgba(34,211,238,0.35); color: #22D3EE; }
-  .icon-box-violet { border: 1px solid rgba(124,77,255,0.4);  color: #A78BFA; }
-  .icon-box-gold   { border: 1px solid rgba(208,168,92,0.4);  color: #D0A85C; }
-
-  /* Floating WhatsApp Action */
-  .fab-whatsapp {
-    position: fixed;
-    bottom: 1.5rem; right: 1.5rem; z-index: 50;
-    width: 3.75rem; height: 3.75rem;
-    border-radius: 9999px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(45,229,143,0.4);
-    box-shadow: 0 0 30px -6px rgba(45,229,143,0.55);
-    color: #2DE58F;
-    transition: transform 0.35s ease;
-  }
-  .fab-whatsapp:hover { transform: translateY(-4px) scale(1.05); }
-
-  .field {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-  .field:focus { outline: none; border-color: rgba(124,77,255,0.6); }
-</style>
+    /* Floating WhatsApp Action */
+    .fab-whatsapp {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+      width: 3.75rem;
+      height: 3.75rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(45,229,143,0.4);
+      box-shadow: 0 0 30px -6px rgba(45,229,143,0.55);
+      color: #2DE58F;
+      transition: transform 0.35s ease;
+    }
+    .fab-whatsapp:hover {
+      transform: translateY(-4px) scale(1.05);
+    }
+  </style>
 </head>
-
 <body class="font-body antialiased">
 
-<div class="mesh-bg" aria-hidden="true">
-  <div class="mesh-blob blob-1"></div>
-  <div class="mesh-blob blob-2"></div>
-</div>
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="mesh-blob blob-1"></div>
+    <div class="mesh-blob blob-2"></div>
+  </div>
 
-<div class="relative z-10">
+  <div class="relative z-10">
+    <!-- HEADER -->
+    <header class="fixed top-0 inset-x-0 z-50">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-5">
+        <div class="glass rounded-2xl px-5 sm:px-7 py-3.5 flex items-center justify-between shadow-glow">
+          <a href="#" class="flex items-center gap-3">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+              <path d="M20 22C20 22 8 18 8 8C16 8 20 22 20 22Z" fill="#22D3EE"/>
+              <path d="M20 22C20 22 32 18 32 8C24 8 20 22 20 22Z" fill="#7C4DFF"/>
+              <path d="M20 22C20 22 15 12 20 4C25 12 20 22 20 22Z" fill="#D0A85C"/>
+            </svg>
+            <span class="font-display font-extrabold text-2xl tracking-[0.3em] text-white">LOTUS</span>
+          </a>
 
-  <!-- HEADER -->
-  <header class="fixed top-0 inset-x-0 z-50">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-5">
-      <div class="glass rounded-2xl px-5 sm:px-7 py-3.5 flex items-center justify-between shadow-glow">
+          <nav class="hidden lg:flex items-center gap-9 font-display text-sm tracking-wide text-white/80">
+            <a href="#services" class="hover:text-white" data-en="Services" data-ar="الخدمات">Services</a>
+            <a href="#pricing" class="hover:text-white" data-en="Pricing" data-ar="الأسعار">Pricing</a>
+            <a href="#contact" class="hover:text-white" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+          </nav>
 
-        <a href="#" class="flex items-center gap-3">
-          <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
-            <path d="M20 22C20 22 8 18 8 8C16 8 20 22 20 22Z" fill="#22D3EE"/>
-            <path d="M20 22C20 22 32 18 32 8C24 8 20 22 20 22Z" fill="#7C4DFF"/>
-            <path d="M20 22C20 22 15 12 20 4C25 12 20 22 20 22Z" fill="#D0A85C"/>
-          </svg>
-          <span class="font-display font-extrabold text-2xl tracking-[0.3em] text-white">LOTUS</span>
-        </a>
+          <div class="flex items-center gap-3">
+            <div class="glass-btn rounded-full flex items-center p-1 text-xs font-display font-semibold">
+              <button id="btn-en" onclick="setLang('en')" class="px-3 py-1.5 rounded-full">EN</button>
+              <button id="btn-ar" onclick="setLang('ar')" class="px-3 py-1.5 rounded-full">AR</button>
+            </div>
 
-        <nav class="hidden lg:flex items-center gap-9 font-display text-sm tracking-wide text-white/80">
-          <a href="#services" class="hover:text-white" data-en="Services" data-ar="الخدمات">Services</a>
-          <a href="#pricing" class="hover:text-white" data-en="Pricing" data-ar="الأسعار">Pricing</a>
-          <a href="#contact" class="hover:text-white" data-en="Contact" data-ar="تواصل معنا">Contact</a>
-        </nav>
-
-        <div class="flex items-center gap-3">
-          <div class="glass-btn rounded-full flex items-center p-1 text-xs font-display font-semibold">
-            <button id="btn-en" onclick="setLang('en')" class="px-3 py-1.5 rounded-full">EN</button>
-            <button id="btn-ar" onclick="setLang('ar')" class="px-3 py-1.5 rounded-full">AR</button>
+            <a href="#contact" class="hidden sm:inline-flex btn-primary rounded-full px-5 py-2.5 text-sm font-display font-semibold text-white">
+              <span data-en="Get Started" data-ar="ابدأ الآن">Get Started</span>
+            </a>
           </div>
+        </div>
+      </div>
+    </header>
 
-          <a href="#contact" class="hidden sm:inline-flex btn-primary rounded-full px-5 py-2.5 text-sm font-display font-semibold text-white">
-            <span data-en="Get Started" data-ar="ابدأ الآن">Get Started</span>
+    <!-- HERO -->
+    <section class="relative min-h-[90vh] flex items-center pt-32 pb-16 px-5 sm:px-8">
+      <div class="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none opacity-80">
+        <div class="lotus-bloom-wrap absolute left-1/2 top-1/2 w-full h-full">
+          <div class="relative w-full h-full">
+            <div class="petal" style="background:radial-gradient(circle, #7C4DFF, transparent); transform:translate(-50%,-100%) rotate(0deg);"></div>
+            <div class="petal" style="background:radial-gradient(circle, #4F46E5, transparent); transform:translate(-50%,-100%) rotate(60deg);"></div>
+            <div class="petal" style="background:radial-gradient(circle, #22D3EE, transparent); transform:translate(-50%,-100%) rotate(120deg);"></div>
+            <div class="petal" style="background:radial-gradient(circle, #7C4DFF, transparent); transform:translate(-50%,-100%) rotate(180deg);"></div>
+            <div class="petal" style="background:radial-gradient(circle, #D0A85C, transparent); transform:translate(-50%,-100%) rotate(240deg);"></div>
+            <div class="petal" style="background:radial-gradient(circle, #22D3EE, transparent); transform:translate(-50%,-100%) rotate(300deg);"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 mb-8 text-xs font-display tracking-widest text-white/70">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan"></span>
+          <span data-en="HIGH-END WEB DEVELOPMENT AGENCY" data-ar="وكالة تطوير مواقع متخصصة">HIGH-END WEB DEVELOPMENT AGENCY</span>
+        </div>
+
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight text-white mb-10">
+          <span data-en="We Craft Exceptional Digital Experiences" data-ar="نصنع تجارب رقمية استثنائية">We Craft Exceptional Digital Experiences</span>
+        </h1>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#services" class="btn-primary w-full sm:w-auto rounded-full px-8 py-3.5 font-display font-semibold text-white text-sm">
+            <span data-en="Explore Services" data-ar="استكشف الخدمات">Explore Services</span>
+          </a>
+          <a href="#pricing" class="glass-btn w-full sm:w-auto rounded-full px-8 py-3.5 font-display font-semibold text-white text-sm">
+            <span data-en="Get a Quote" data-ar="احصل على عرض سعر">Get a Quote</span>
           </a>
         </div>
       </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- HERO -->
-  <section class="relative min-h-[90vh] flex items-center pt-32 pb-16 px-5 sm:px-8">
-    <div class="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none opacity-80">
-      <div class="lotus-bloom-wrap absolute left-1/2 top-1/2 w-full h-full">
-        <div class="relative w-full h-full">
-          <div class="petal" style="background:radial-gradient(circle, #7C4DFF, transparent); transform:translate(-50%,-100%) rotate(0deg);"></div>
-          <div class="petal" style="background:radial-gradient(circle, #4F46E5, transparent); transform:translate(-50%,-100%) rotate(60deg);"></div>
-          <div class="petal" style="background:radial-gradient(circle, #22D3EE, transparent); transform:translate(-50%,-100%) rotate(120deg);"></div>
-          <div class="petal" style="background:radial-gradient(circle, #7C4DFF, transparent); transform:translate(-50%,-100%) rotate(180deg);"></div>
-          <div class="petal" style="background:radial-gradient(circle, #D0A85C, transparent); transform:translate(-50%,-100%) rotate(240deg);"></div>
-          <div class="petal" style="background:radial-gradient(circle, #22D3EE, transparent); transform:translate(-50%,-100%) rotate(300deg);"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="relative max-w-4xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 mb-8 text-xs font-display tracking-widest text-white/70">
-        <span class="w-1.5 h-1.5 rounded-full bg-cyan"></span>
-        <span data-en="HIGH-END WEB DEVELOPMENT AGENCY" data-ar="وكالة تطوير مواقع متخصصة">HIGH-END WEB DEVELOPMENT AGENCY</span>
-      </div>
-
-      <h1 class="font-display font-extrabold text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight text-white mb-10">
-        <span data-en="We Craft Exceptional Digital Experiences" data-ar="نصنع تجارب رقمية استثنائية">We Craft Exceptional Digital Experiences</span>
-      </h1>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#services" class="btn-primary w-full sm:w-auto rounded-full px-8 py-3.5 font-display font-semibold text-white text-sm">
-          <span data-en="Explore Services" data-ar="استكشف الخدمات">Explore Services</span>
-        </a>
-        <a href="#pricing" class="glass-btn w-full sm:w-auto rounded-full px-8 py-3.5 font-display font-semibold text-white text-sm">
-          <span data-en="Get a Quote" data-ar="احصل على عرض سعر">Get a Quote</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services" class="relative px-5 sm:px-8 py-20">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="glass card-hover rounded-3xl p-7 flex flex-col">
-          <div class="icon-box icon-box-cyan mb-6">💻</div>
-          <h3 class="font-display font-semibold text-lg text-white" data-en="Custom Web Development" data-ar="تطوير مواقع حسب الطلب">Custom Web Development</h3>
-        </div>
-        <div class="glass card-hover rounded-3xl p-7 flex flex-col">
-          <div class="icon-box icon-box-violet mb-6">⚙️</div>
-          <h3 class="font-display font-semibold text-lg text-white" data-en="Industry Solutions" data-ar="حلول متخصصة لكل قطاع">Industry Solutions</h3>
-        </div>
-        <div class="glass card-hover rounded-3xl p-7 flex flex-col">
-          <div class="icon-box icon-box-gold mb-6">🚀</div>
-          <h3 class="font-display font-semibold text-lg text-white" data-en="Performance & SEO" data-ar="سرعة عالية وتحسين SEO">Performance & SEO</h3>
-        </div>
-        <div class="glass card-hover rounded-3xl p-7 flex flex-col">
-          <div class="icon-box icon-box-cyan mb-6">🛠️</div>
-          <h3 class="font-display font-semibold text-lg text-white" data-en="Support & Maintenance" data-ar="صيانة ودعم مستمر">Support & Maintenance</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING SECTION -->
-  <section id="pricing" class="relative px-5 sm:px-8 py-20">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white mb-4" data-en="Flexible Pricing Plans" data-ar="خطط أسعار مرنة">Flexible Pricing Plans</h2>
-        <p class="text-white/60 max-w-xl mx-auto text-sm sm:text-base" data-en="Choose the perfect balance of price and value for your business." data-ar="اختر التوازن المثالي بين السعر والقيمة لتطوير أعمالك.">Choose the perfect balance of price and value for your business.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- Starter Plan -->
-        <div class="glass card-hover rounded-3xl p-8 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-display font-bold text-cyan uppercase tracking-wider mb-2 block">Starter</span>
-            <h3 class="font-display font-bold text-2xl text-white mb-4" data-en="Landing Page" data-ar="صفحة هبوط">Landing Page</h3>
-            <div class="text-3xl font-extrabold text-white mb-6">2,500 <span class="text-sm font-normal text-white/50">EGP</span></div>
-            <ul class="space-y-3 text-sm text-white/80 mb-8">
-              <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="1 Page Custom Design" data-ar="تصميم صفحة هبوط مخصصة">1 Page Custom Design</span></li>
-              <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="1 Language (AR or EN)" data-ar="لغة واحدة (عربي أو إنجليزي)">1 Language (AR or EN)</span></li>
-              <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="Fully Mobile Responsive" data-ar="متجاوب بالكامل مع الموبايل">Fully Mobile Responsive</span></li>
-              <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="WhatsApp & Contact Form" data-ar="ربط الواتساب ونموذج التواصل">WhatsApp & Contact Form</span></li>
-              <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="Fast Delivery (3-4 Days)" data-ar="تسليم خلال 3 إلى 4 أيام">Fast Delivery (3-4 Days)</span></li>
-            </ul>
+    <!-- SERVICES -->
+    <section id="services" class="relative px-5 sm:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="glass card-hover rounded-3xl p-7 flex flex-col">
+            <div class="icon-box icon-box-cyan mb-6">💻</div>
+            <h3 class="font-display font-semibold text-lg text-white" data-en="Custom Web Development" data-ar="تطوير مواقع حسب الطلب">Custom Web Development</h3>
           </div>
-          <a href="#contact" class="glass-btn w-full text-center rounded-full py-3 text-sm font-display font-semibold text-white" data-en="Choose Plan" data-ar="اختر الباقة">Choose Plan</a>
-        </div>
-
-        <!-- Business Plan (Featured) -->
-        <div class="glass-strong card-hover rounded-3xl p-8 flex flex-col justify-between relative border-violet/50 shadow-glow">
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet to-cyan text-white text-[10px] font-bold tracking-widest px-4 py-1 rounded-full uppercase" data-en="Most Popular" data-ar="الأكثر طلباً">Most Popular</div>
-          <div>
-            <span class="text-xs font-display font-bold text-violet-50 uppercase tracking-wider mb-2 block">Business</span>
-            <h3 class="font-display font-bold text-2xl text-white mb-4" data-en="Full Website" data-ar="موقع متكامل">Full Website</h3>
-            <div class="text-3xl font-extrabold text-white mb-6">5,500 <span class="text-sm font-normal text-white/50">EGP</span></div>
-            <ul class="space-y-3 text-sm text-white/80 mb-8">
-              <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Up to 6 Custom Pages" data-ar="حتى 6 صفحات مخصصة">Up to 6 Custom Pages</span></li>
-              <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Bilingual (EN + AR)" data-ar="ثنائي اللغة (عربي + إنجليزي)">Bilingual (EN + AR)</span></li>
-              <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Admin Panel (CMS)" data-ar="لوحة تحكم سهلة لتعديل المحتوى">Admin Panel (CMS)</span></li>
-              <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Glass Effects & Animations" data-ar="أنيميشن ومؤثرات بصرية راقية">Glass Effects & Animations</span></li>
-              <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="1 Month Support" data-ar="شهر دعم فني وصيانة مجاناً">1 Month Support</span></li>
-            </ul>
+          <div class="glass card-hover rounded-3xl p-7 flex flex-col">
+            <div class="icon-box icon-box-violet mb-6">⚙️</div>
+            <h3 class="font-display font-semibold text-lg text-white" data-en="Industry Solutions" data-ar="حلول متخصصة لكل قطاع">Industry Solutions</h3>
           </div>
-          <a href="#contact" class="btn-primary w-full text-center rounded-full py-3 text-sm font-display font-semibold text-white" data-en="Choose Business" data-ar="اختر باقة الأعمال">Choose Business</a>
-        </div>
-
-        <!-- Enterprise / E-Commerce Plan -->
-        <div class="glass card-hover rounded-3xl p-8 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-display font-bold text-gold uppercase tracking-wider mb-2 block">Enterprise</span>
-            <h3 class="font-display font-bold text-2xl text-white mb-4" data-en="Online Store / Custom" data-ar="متجر إلكتروني / مخصص">Online Store / Custom</h3>
-            <div class="text-3xl font-extrabold text-white mb-6">12,000 <span class="text-sm font-normal text-white/50">EGP</span></div>
-            <ul class="space-y-3 text-sm text-white/80 mb-8">
-              <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="Full E-Commerce Store" data-ar="متجر إلكتروني كامل ومطور">Full E-Commerce Store</span></li>
-              <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="Online Payment Gateways" data-ar="ربط الدفع الإلكتروني (Visa/Fawry)">Online Payment Gateways</span></li>
-              <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="Products & Orders Admin" data-ar="إدارة كاملة للمنتجات والطلبات">Products & Orders Admin</span></li>
-              <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="High Performance & Security" data-ar="أعلى درجات السرعة والأمان">High Performance & Security</span></li>
-              <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="2 Months Support & Training" data-ar="شهرين دعم فني وتدريب">2 Months Support & Training</span></li>
-            </ul>
+          <div class="glass card-hover rounded-3xl p-7 flex flex-col">
+            <div class="icon-box icon-box-gold mb-6">🚀</div>
+            <h3 class="font-display font-semibold text-lg text-white" data-en="Performance & SEO" data-ar="سرعة عالية وتحسين SEO">Performance & SEO</h3>
           </div>
-          <a href="#contact" class="glass-btn w-full text-center rounded-full py-3 text-sm font-display font-semibold text-white" data-en="Get Started" data-ar="ابدأ الآن">Get Started</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="relative px-5 sm:px-8 py-20">
-    <div class="max-w-3xl mx-auto glass-strong rounded-3xl p-8 text-center">
-      <h2 class="font-display font-bold text-2xl text-white mb-6" data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h2>
-      <div class="flex flex-col sm:flex-row justify-center gap-6 text-sm">
-        <div>
-          <span class="text-white/40 block">WhatsApp:</span>
-          <a href="https://wa.me/2001152308888" target="_blank" class="text-cyan font-semibold">+20 01152308888</a>
-        </div>
-        <div>
-          <span class="text-white/40 block">Email:</span>
-          <a href="mailto:ahmedabdelhalim20923@gmail.com" class="text-violet font-semibold">ahmedabdelhalim20923@gmail.com</a>
+          <div class="glass card-hover rounded-3xl p-7 flex flex-col">
+            <div class="icon-box icon-box-cyan mb-6">🛠️</div>
+            <h3 class="font-display font-semibold text-lg text-white" data-en="Support & Maintenance" data-ar="صيانة ودعم مستمر">Support & Maintenance</h3>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER CREDITS -->
-  <footer class="relative z-10 border-t border-white/10 py-8 px-5 sm:px-8 text-center">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
-      <p>© 2026 Lotus Agency. All rights reserved.</p>
-      <p class="font-display text-white/80">
-        <span data-en="Designed & Developed with ❤️ by " data-ar="تم التصميم والتطوير بـ ❤️ بواسطة ">Designed & Developed with ❤️ by </span>
-        <span class="text-cyan font-semibold">Ahmed Abdelhalim</span>
-      </p>
-    </div>
-  </footer>
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="relative px-5 sm:px-8 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white mb-4" data-en="Flexible Pricing Plans" data-ar="خطط أسعار مرنة">Flexible Pricing Plans</h2>
+          <p class="text-white/60 max-w-xl mx-auto text-sm sm:text-base" data-en="Choose the perfect balance of price and value for your business." data-ar="اختر التوازن المثالي بين السعر والقيمة لتطوير أعمالك.">Choose the perfect balance of price and value for your business.</p>
+        </div>
 
-</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Starter Plan -->
+          <div class="glass card-hover rounded-3xl p-8 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-display font-bold text-cyan uppercase tracking-wider mb-2 block">Starter</span>
+              <h3 class="font-display font-bold text-2xl text-white mb-4" data-en="Landing Page" data-ar="صفحة هبوط">Landing Page</h3>
+              <div class="text-3xl font-extrabold text-white mb-6">2,500 <span class="text-sm font-normal text-white/50">EGP</span></div>
+              <ul class="space-y-3 text-sm text-white/80 mb-8">
+                <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="1 Page Custom Design" data-ar="تصميم صفحة هبوط مخصصة">1 Page Custom Design</span></li>
+                <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="1 Language (AR or EN)" data-ar="لغة واحدة (عربي أو إنجليزي)">1 Language (AR or EN)</span></li>
+                <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="Fully Mobile Responsive" data-ar="متجاوب بالكامل مع الموبايل">Fully Mobile Responsive</span></li>
+                <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="WhatsApp & Contact Form" data-ar="ربط الواتساب ونموذج التواصل">WhatsApp & Contact Form</span></li>
+                <li class="flex items-center gap-2"><span class="text-cyan">✓</span> <span data-en="Fast Delivery (3-4 Days)" data-ar="تسليم خلال 3 إلى 4 أيام">Fast Delivery (3-4 Days)</span></li>
+              </ul>
+            </div>
+            <a href="#contact" class="glass-btn w-full text-center rounded-full py-3 text-sm font-display font-semibold text-white" data-en="Choose Plan" data-ar="اختر الباقة">Choose Plan</a>
+          </div>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/2001152308888" target="_blank" class="fab-whatsapp">
-  <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-</a>
+          <!-- Business Plan (Featured) -->
+          <div class="glass-strong card-hover rounded-3xl p-8 flex flex-col justify-between relative border-violet/50 shadow-glow">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet to-cyan text-white text-[10px] font-bold tracking-widest px-4 py-1 rounded-full uppercase" data-en="Most Popular" data-ar="الأكثر طلباً">Most Popular</div>
+            <div>
+              <span class="text-xs font-display font-bold text-violet-50 uppercase tracking-wider mb-2 block">Business</span>
+              <h3 class="font-display font-bold text-2xl text-white mb-4" data-en="Full Website" data-ar="موقع متكامل">Full Website</h3>
+              <div class="text-3xl font-extrabold text-white mb-6">5,500 <span class="text-sm font-normal text-white/50">EGP</span></div>
+              <ul class="space-y-3 text-sm text-white/80 mb-8">
+                <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Up to 6 Custom Pages" data-ar="حتى 6 صفحات مخصصة">Up to 6 Custom Pages</span></li>
+                <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Bilingual (EN + AR)" data-ar="ثنائي اللغة (عربي + إنجليزي)">Bilingual (EN + AR)</span></li>
+                <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Admin Panel (CMS)" data-ar="لوحة تحكم سهلة لتعديل المحتوى">Admin Panel (CMS)</span></li>
+                <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="Glass Effects & Animations" data-ar="أنيميشن ومؤثرات بصرية راقية">Glass Effects & Animations</span></li>
+                <li class="flex items-center gap-2"><span class="text-violet font-bold">✓</span> <span data-en="1 Month Support" data-ar="شهر دعم فني وصيانة مجاناً">1 Month Support</span></li>
+              </ul>
+            </div>
+            <a href="#contact" class="btn-primary w-full text-center rounded-full py-3 text-sm font-display font-semibold text-white" data-en="Choose Business" data-ar="اختر باقة الأعمال">Choose Business</a>
+          </div>
 
-<!-- JS Switcher -->
-<script>
-  function setLang(lang) {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+          <!-- Enterprise Plan -->
+          <div class="glass card-hover rounded-3xl p-8 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-display font-bold text-gold uppercase tracking-wider mb-2 block">Enterprise</span>
+              <h3 class="font-display font-bold text-2xl text-white mb-4" data-en="Online Store / Custom" data-ar="متجر إلكتروني / مخصص">Online Store / Custom</h3>
+              <div class="text-3xl font-extrabold text-white mb-6">12,000 <span class="text-sm font-normal text-white/50">EGP</span></div>
+              <ul class="space-y-3 text-sm text-white/80 mb-8">
+                <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="Full E-Commerce Store" data-ar="متجر إلكتروني كامل ومطور">Full E-Commerce Store</span></li>
+                <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="Online Payment Gateways" data-ar="ربط الدفع الإلكتروني (Visa/Fawry)">Online Payment Gateways</span></li>
+                <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="Products & Orders Admin" data-ar="إدارة كاملة للمنتجات والطلبات">Products & Orders Admin</span></li>
+                <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="High Performance & Security" data-ar="أعلى درجات السرعة والأمان">High Performance & Security</span></li>
+                <li class="flex items-center gap-2"><span class="text-gold">✓</span> <span data-en="2 Months Support & Training" data-ar="شهرين دعم فني وتدريب">2 Months Support & Training</span></li>
+              </ul>
+            </div>
+            <a href="#contact" class="glass-btn w-full text-center rounded-full py-3 text-sm font-display font-semibold text-white" data-en="Get Started" data-ar="ابدأ الآن">Get Started</a>
+          </div>
 
-    document.querySelectorAll('[data-en]').forEach(el => {
-      const text = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
-      if (text) el.textContent = text;
-    });
+        </div>
+      </div>
+    </section>
 
-    document.getElementById('btn-en').className = `px-3 py-1.5 rounded-full ${lang === 'en' ? 'bg-white/20 text-white' : 'text-white/60'}`;
-    document.getElementById('btn-ar').className = `px-3 py-1.5 rounded-full ${lang === 'ar' ? 'bg-white/20 text-white' : 'text-white/60'}`;
-  }
-  setLang('en');
-</script>
+    <!-- CONTACT -->
+    <section id="contact" class="relative px-5 sm:px-8 py-20">
+      <div class="max-w-3xl mx-auto glass-strong rounded-3xl p-8 text-center">
+        <h2 class="font-display font-bold text-2xl text-white mb-6" data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h2>
+        <div class="flex flex-col sm:flex-row justify-center gap-6 text-sm">
+          <div>
+            <span class="text-white/40 block">WhatsApp:</span>
+            <a href="https://wa.me/2001152308888" target="_blank" class="text-cyan font-semibold">+20 01152308888</a>
+          </div>
+          <div>
+            <span class="text-white/40 block">Email:</span>
+            <a href="mailto:ahmedabdelhalim20923@gmail.com" class="text-violet font-semibold">ahmedabdelhalim20923@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-white/10 py-8 px-5 sm:px-8 text-center">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
+        <p>© 2026 Lotus Agency. All rights reserved.</p>
+        <p class="font-display text-white/80">
+          <span data-en="Designed & Developed with ❤️ by " data-ar="تم التصميم والتطوير بـ ❤️ بواسطة ">Designed & Developed with ❤️ by </span>
+          <span class="text-cyan font-semibold">Ahmed Abdelhalim</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/2001152308888" target="_blank" class="fab-whatsapp" title="Contact on WhatsApp">
+    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+  </a>
+
+  <!-- JS Switcher -->
+  <script>
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+        if (text) el.textContent = text;
+      });
+
+      document.getElementById('btn-en').className = `px-3 py-1.5 rounded-full ${lang === 'en' ? 'bg-white/20 text-white' : 'text-white/60'}`;
+      document.getElementById('btn-ar').className = `px-3 py-1.5 rounded-full ${lang === 'ar' ? 'bg-white/20 text-white' : 'text-white/60'}`;
+    }
+    setLang('en');
+  </script>
 </body>
 </html>
